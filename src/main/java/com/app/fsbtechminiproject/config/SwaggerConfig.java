@@ -32,7 +32,7 @@ public class SwaggerConfig {
                 "Order Service API",
                 "Order Service API Description",
                 "1.0",
-                "https://twitter.com/fsbtech?lang=es",
+                "https://fsbtech.com/",
                 new Contact("Jesus Meizoso", "https://www.linkedin.com/public-profile/settings?trk=d_flagship3_profile_self_view_public_profile", "jesus.meizoso@gmail.com"),
                 "LICENSE",
                 "LICENSE URL",
