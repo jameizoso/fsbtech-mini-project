@@ -58,12 +58,6 @@ mvn test
 # Logging
 Logging is implemented in the application to capture important events and provide insights into the system's behavior. Events are showed in the console
 
-# Documentation
-The application is documented using Javadoc comments to provide comprehensive information about the classes, methods, and their usage. You can generate the documentation using the following command:
-
-run command
-mvn javadoc:javadoc
-The generated documentation can be found in the target/site/apidocs directory.
 
 # Dependencies
 The project is managed using Maven and includes the following dependencies:
