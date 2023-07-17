@@ -33,7 +33,7 @@ public class SwaggerConfig {
                 "Order Service API Description",
                 "1.0",
                 "http://myterms.com/terms",
-                new Contact("Jesus Meizoso", "https://mytest.com", "user@company-domain.com"),
+                new Contact("Jesus Meizoso", "https://www.linkedin.com/public-profile/settings?trk=d_flagship3_profile_self_view_public_profile", "jesus.meizoso@gmail.com"),
                 "LICENSE",
                 "LICENSE URL",
                 Collections.emptyList()
