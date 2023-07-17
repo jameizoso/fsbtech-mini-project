@@ -18,7 +18,7 @@ To set up and run the application, follow these steps:
 Clone the repository:
 
 run command
-git clone https://gitlab.com/jameizoso1/fsbtech-mini-project.git
+git clone https://github.com/jameizoso/fsbtech-mini-project.git
 Navigate to the project directory:
 
 bash
