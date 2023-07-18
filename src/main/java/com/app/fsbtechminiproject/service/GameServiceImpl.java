@@ -15,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -30,7 +31,7 @@ public class GameServiceImpl implements GameService {
     @Transactional
     @CacheEvict(cacheNames = {"gameCache", "games"}, allEntries = true)
     public Game createGame(Game game) {
-        Optional<Game> gameExists = repository.findById(game.getName());
+        Optional<Game> gameExists = Optional.ofNullable(repository.findByName(game.getName()));
         if (gameExists.isPresent()) {
             throw new DataIntegrityViolationException("This game already exists");
         }
@@ -46,12 +47,12 @@ public class GameServiceImpl implements GameService {
     @Override
     @Cacheable(cacheNames = {"gameCache"}, key = "#name")
     public Game getGame(String name) {
-        Optional<Game> game = repository.findById(name);
+        Optional<Game> game = Optional.ofNullable(repository.findByName(name));
         return game.orElseThrow(() -> new NotFoundException("Game with name " + name + " not found."));
     }
 
     @Override
-    @Cacheable("games")
+    @Cacheable(cacheNames = {"gameCache", "games"})
     public List<Game> getAllGames() {
         if (repository.findAll().isEmpty()) {
             throw new NotFoundException("No results.");
@@ -64,21 +65,28 @@ public class GameServiceImpl implements GameService {
     @CacheEvict(cacheNames = {"gameCache", "games"}, allEntries = true)
     @Transactional
     public Game updateGame(Game game) {
-        if (!repository.existsById(game.getName())) {
+        if (!repository.existsByName(game.getName())) {
             throw new NotFoundException("Game with name " + game.getName() + " doesn't exist on the data base.");
         }
-        try {
-            return repository.save(game);
-        } catch (ObjectOptimisticLockingFailureException ex) {
+
+        Game gameUpdate = repository.findByName(game.getName());
+        gameUpdate.setName(game.getName());
+        gameUpdate.setCreationDate(game.getCreationDate());
+        gameUpdate.setActive(game.isActive());
+
+        try{
+            return repository.save(gameUpdate);
+        }catch (ObjectOptimisticLockingFailureException ex) {
             throw new DataIntegrityViolationException("The update operation could not be completed due to a concurrency conflict");
         }
+
     }
 
     @Override
     @CacheEvict(cacheNames = {"gameCache", "games"}, allEntries = true)
     @Transactional
     public void deleteGame(String name) {
-        if (!repository.existsById(name)) {
+        if (!repository.existsByName(name)) {
             throw new NotFoundException("Game with name " + name + " doesn't exist on the data base.");
         }
         try {

@@ -59,7 +59,7 @@ public class GameControllerTest {
     @Test
     public void testAddGame() throws Exception {
 
-        Game game = new Game("game1", new Date(),true, 0 );
+        Game game = new Game(1l,"game1", new Date(),true, 0 );
 
         // Mock the behavior of the GameService
         when(gameService.createGame(any(Game.class))).thenReturn(game);
@@ -78,7 +78,7 @@ public class GameControllerTest {
     @Test
     public void testAddGame_DataIntegrityViolationException() throws Exception {
 
-        Game game = new Game("game1", new Date(),true, 0 );
+        Game game = new Game(1l,"game1", new Date(),true, 0 );
 
         // Mock the behavior of the GameService to throw DataIntegrityViolationException
         doThrow(DataIntegrityViolationException.class).when(gameService).createGame(any(Game.class));
@@ -97,7 +97,7 @@ public class GameControllerTest {
     @Test
     public void testGetGame_Success() throws Exception {
         String gameName = "TestGame";
-        Game game = new Game(gameName, new Date(), true, 0);
+        Game game = new Game(1l,gameName, new Date(), true, 0);
 
         // Mock the behavior of the GameService
         when(gameService.getGame(eq(gameName))).thenReturn(game);
@@ -136,7 +136,7 @@ public class GameControllerTest {
     @Test
     public void testUpdateGame_Success() throws Exception {
 
-        Game game = new Game("game1", new Date(), true, 0);
+        Game game = new Game(1l,"game1", new Date(), true, 0);
 
         // Performing the request
         mockMvc.perform(put("/api/v1/game/update")
@@ -152,7 +152,7 @@ public class GameControllerTest {
     @Test
     public void testUpdateGame_NotFound() throws Exception {
 
-        Game game = new Game("game1", new Date(),true, 0 );
+        Game game = new Game(1l,"game1", new Date(),true, 0 );
 
         String errorMessage = "Game with name " + game.getName() + " doesn't exist on the data base.";
 
@@ -209,9 +209,9 @@ public class GameControllerTest {
     public void testGetAll_Success() throws Exception {
         // Create a list of games
         List<Game> games = new ArrayList<>();
-        games.add(new Game("game1", new Date(),true, 0 ));
-        games.add(new Game("game2", new Date(),false, 1 ));
-        games.add(new Game("game3", new Date(),true, 0 ));
+        games.add(new Game(1l,"game1", new Date(),true, 0 ));
+        games.add(new Game(2l,"game2", new Date(),false, 1 ));
+        games.add(new Game(3l,"game3", new Date(),true, 0 ));
 
         // Mock the behavior of the GameService
         when(gameService.getAllGames()).thenReturn(games);
