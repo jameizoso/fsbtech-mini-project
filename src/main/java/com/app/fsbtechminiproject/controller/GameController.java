@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.validation.Valid;
+
 
 @RestController
 @RequestMapping("/api/v1/game")
@@ -28,7 +30,7 @@ public class GameController {
 
 
     @PostMapping("/addGame")
-    public ResponseEntity<?> addGame(@RequestBody Game game) {
+    public ResponseEntity<?> addGame(@Valid @RequestBody Game game) {
         try {
             logger.info("Executing addGame Method.");
 
@@ -73,7 +75,7 @@ public class GameController {
 
 
     @PutMapping("/update")
-    public ResponseEntity<?> updateGame(@RequestBody Game game) {
+    public ResponseEntity<?> updateGame(@Valid @RequestBody Game game) {
         try {
             logger.info("Executing updateGame Method.");
 

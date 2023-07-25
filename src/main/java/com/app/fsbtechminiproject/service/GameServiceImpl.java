@@ -4,18 +4,13 @@ import com.app.fsbtechminiproject.exception.NotFoundException;
 import com.app.fsbtechminiproject.model.Game;
 import com.app.fsbtechminiproject.repository.GameRepository;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.http.HttpStatus;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -96,5 +91,13 @@ public class GameServiceImpl implements GameService {
         }
     }
 
+
+    public static void waitInsecons(int seconds) { //for testing proposes
+        try {
+            Thread.sleep(seconds * 1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
